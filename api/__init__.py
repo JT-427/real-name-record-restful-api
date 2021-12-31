@@ -21,6 +21,6 @@ def create_app(config_file="config.py"):
     api.add_resource(place.Api_of_Place, "/place")
     api.add_resource(trace.Api_Of_Trace, "/trace")
 
-    # db.create_all(app=app)
+    db.create_all(app=app)
 
     return app

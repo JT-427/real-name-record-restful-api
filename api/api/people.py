@@ -3,25 +3,25 @@ from .. import db
 from ..models import People
 from flask_restful import Resource, reqparse, abort, fields, marshal_with
 
-place_get_args = reqparse.RequestParser()
-place_get_args.add_argument("people_id", type=str, help="people_id of the place is required", required=True)
-place_get_args.add_argument("name", type=str, help="name of the place is required")
-place_get_args.add_argument("gender", type=str, help="gender of the place is required")
-place_get_args.add_argument("contact_number", type=str, help="contact_number of the place is required")
-place_get_args.add_argument("address", type=str, help="address of the place is required")
+people_get_args = reqparse.RequestParser()
+people_get_args.add_argument("people_id", type=str, help="people_id of the people is required", required=True)
+people_get_args.add_argument("name", type=str, help="name of the people is required")
+people_get_args.add_argument("gender", type=str, help="gender of the people is required")
+people_get_args.add_argument("contact_number", type=str, help="contact_number of the people is required")
+people_get_args.add_argument("address", type=str, help="address of the people is required")
 
-place_put_args = reqparse.RequestParser()
-place_put_args.add_argument("name", type=str, help="name of the place is required", required=True)
-place_put_args.add_argument("gender", type=str, help="gender of the place is required", required=True)
-place_put_args.add_argument("contact_number", type=str, help="contact_number of the place is required")
-place_put_args.add_argument("address", type=str, help="address of the place is required")
+people_put_args = reqparse.RequestParser()
+people_put_args.add_argument("name", type=str, help="name of the people is required", required=True)
+people_put_args.add_argument("gender", type=str, help="gender of the people is required", required=True)
+people_put_args.add_argument("contact_number", type=str, help="contact_number of the people is required")
+people_put_args.add_argument("address", type=str, help="address of the people is required")
 
-place_patch_args = reqparse.RequestParser()
-place_patch_args.add_argument("people_id", type=str, help="people_id of the place is required", required=True)
-place_patch_args.add_argument("name", type=str, help="name of the place is required")
-place_patch_args.add_argument("gender", type=str, help="gender of the place is required")
-place_patch_args.add_argument("contact_number", type=str, help="contact_number of the place is required")
-place_patch_args.add_argument("address", type=str, help="address of the place is required")
+people_patch_args = reqparse.RequestParser()
+people_patch_args.add_argument("people_id", type=str, help="people_id of the people is required", required=True)
+people_patch_args.add_argument("name", type=str, help="name of the people is required")
+people_patch_args.add_argument("gender", type=str, help="gender of the people is required")
+people_patch_args.add_argument("contact_number", type=str, help="contact_number of the people is required")
+people_patch_args.add_argument("address", type=str, help="address of the people is required")
 
 resource_fields = {
 	'people_id': fields.String,
@@ -34,7 +34,7 @@ resource_fields = {
 class Api_of_People(Resource):
     @marshal_with(resource_fields)
     def get(self):
-        args = place_get_args.parse_args()
+        args = people_get_args.parse_args()
         if args['people_id']:
             data = db.session.query(People).filter(People.people_id == args['people_id']).first()
         
@@ -45,18 +45,32 @@ class Api_of_People(Resource):
 
     @marshal_with(resource_fields)
     def put(self):
-        args = place_put_args.parse_args()
-        people_id = ""
-        name = args['name']
-        address = args['address']
-        new_place = People(people_id=people_id, name=name, address=address)
-        db.session.add(new_place)
+        args = people_put_args.parse_args()
+        print(args)
+
+        import string
+        import random
+        length_of_string = 32
+        while True:
+            people_id = ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits) for _ in range(length_of_string))
+            check = db.session.query(People).filter(People.people_id == people_id).first()
+            if not check:
+                break
+
+        new_people = People(
+            people_id=people_id,
+            name=args['name'],
+            gender=args['gender'],
+            contact_number=args['contact_number'],
+            address=args['address']
+            )
+        db.session.add(new_people)
         db.session.commit()
-        return new_place, 401
+        return new_people, 401
 
     @marshal_with(resource_fields)
     def patch(self):
-        args = place_patch_args.parse_args()
+        args = people_patch_args.parse_args()
         data = db.session.query(People).filter(People.people_id == args['people_id']).first()
         if not data:
             abort(404, message="ID doesn't exist, cannot update")

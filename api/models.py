@@ -3,7 +3,7 @@ from . import db
 class People(db.Model):
     people_id = db.Column(db.String(32), primary_key=True)
     name = db.Column(db.String(45), nullable=False)
-    gender = db.Column(db.Integer, nullable=False)
+    gender = db.Column(db.String(1), nullable=False)
     contact_number = db.Column(db.String(15), nullable=False)
     address = db.Column(db.String(100), nullable=False)
 

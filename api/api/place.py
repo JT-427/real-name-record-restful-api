@@ -27,6 +27,7 @@ class Api_of_Place(Resource):
     @marshal_with(resource_fields)
     def get(self):
         args = place_get_args.parse_args()
+        print(args)
         if args['place_id']:
             data = db.session.query(Place).filter(Place.place_id == args['place_id']).all()
         
@@ -38,7 +39,14 @@ class Api_of_Place(Resource):
     @marshal_with(resource_fields)
     def put(self):
         args = place_put_args.parse_args()
-        place_id = ""
+        import string
+        import random
+        length_of_string = 48
+        while True:
+            place_id = ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits) for _ in range(length_of_string))
+            check = db.session.query(Place).filter(Place.place_id == place_id).first()
+            if not check:
+                break
         place_name = args['place_name']
         address = args['address']
         new_place = Place(place_id=place_id, place_name=place_name, address=address)
