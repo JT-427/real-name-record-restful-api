@@ -1,5 +1,6 @@
 import requests
 
+'''
 data = {
     'people_id':'3dKSx0DLXak3JzaMfAGDnJg09zXlknJT',
     'place_id':'3IynHjTcmDLGdL75DLG1GXJm9A4ERqxsRF8EaigcacHVcdLE'
@@ -7,6 +8,9 @@ data = {
 response = requests.put("http://127.0.0.1:5000/trace", data=data)
 print(response.json())
 print(response.status_code)
+'''
+
+# =============================
 
 '''
 id = '3dKSx0DLXak3JzaMfAGDnJg09zXlknJT'
