@@ -5,7 +5,7 @@ import datetime as dt
 
 trace_put_args = reqparse.RequestParser()
 trace_put_args.add_argument("people_id", type=str, help="people_id of the trace is required", required=True)
-trace_put_args.add_argument("place_id", type=int, help="place_id of the trace is required", required=True)
+trace_put_args.add_argument("place_id", type=str, help="place_id of the trace is required", required=True)
 
 resource_fields = {
 	'people_id': fields.String,

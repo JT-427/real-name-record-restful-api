@@ -1,12 +1,6 @@
-from api.api import people
 from .. import db
 from ..models import Place
 from flask_restful import Resource, reqparse, abort, fields, marshal_with
-
-place_patch_args = reqparse.RequestParser()
-place_patch_args.add_argument("place_id", type=str, help="place_id of the place is required", required=True)
-place_patch_args.add_argument("place_name", type=str, help="place_name of the place is required")
-place_patch_args.add_argument("address", type=str, help="address of the place is required")
 
 place_get_args = reqparse.RequestParser()
 place_get_args.add_argument("place_id", type=str, help="place_id of the place is required")
@@ -16,6 +10,11 @@ place_get_args.add_argument("address", type=str, help="address of the place is r
 place_put_args = reqparse.RequestParser()
 place_put_args.add_argument("place_name", type=str, help="place_name of the place is required", required=True)
 place_put_args.add_argument("address", type=str, help="address of the place is required", required=True)
+
+place_patch_args = reqparse.RequestParser()
+place_patch_args.add_argument("place_id", type=str, help="place_id of the place is required", required=True)
+place_patch_args.add_argument("place_name", type=str, help="place_name of the place is required")
+place_patch_args.add_argument("address", type=str, help="address of the place is required")
 
 resource_fields = {
 	'place_id': fields.String,

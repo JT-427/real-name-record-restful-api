@@ -17,9 +17,11 @@ def create_app(config_file="config.py"):
     from .api import people
     from .api import place
     from .api import trace
+    from .api import qrcodegen
     api.add_resource(people.Api_of_People, "/people")
     api.add_resource(place.Api_of_Place, "/place")
     api.add_resource(trace.Api_Of_Trace, "/trace")
+    api.add_resource(qrcodegen.qrcode_gen, "/qrcodegen")
 
     db.create_all(app=app)
 

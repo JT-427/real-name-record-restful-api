@@ -1,4 +1,3 @@
-from api.api import people
 from .. import db
 from ..models import People
 from flask_restful import Resource, reqparse, abort, fields, marshal_with
