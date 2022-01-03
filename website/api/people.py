@@ -45,7 +45,6 @@ class Api_of_People(Resource):
     @marshal_with(resource_fields)
     def put(self):
         args = people_put_args.parse_args()
-        print(args)
 
         import string
         import random

@@ -13,4 +13,4 @@ class qrcode_gen(Resource):
             import qrcode # 匯入模組
             img = qrcode.make(p.people_id) # QRCode資訊
             img.save(f"./qrcode/{p.name}.png") # 儲存圖片
-        return
+        return ""
