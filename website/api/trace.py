@@ -1,5 +1,5 @@
 from .. import db
-from ..models import Trace
+from ..models import People, Place, Trace
 from flask_restful import Api, Resource, reqparse, abort, fields, marshal_with
 import datetime as dt
 
@@ -21,4 +21,9 @@ class Api_Of_Trace(Resource):
         new_trace = Trace(people_id = people_id, place_id = place_id, time = dt.datetime.now())
         db.session.add(new_trace)
         db.session.commit()
+        pe = db.session.query(People).filter(People.people_id == people_id).first()
+        pl = db.session.query(Place).filter(Place.place_id == place_id).first()
+        print("已送出實聯制資料")
+        print(pe.name)
+        print(pe.name, ":", pe.address)
         return new_trace
