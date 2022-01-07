@@ -8,6 +8,10 @@
 ## Requirements
 - python >= 3.8
 
+## Datebase Design
+![img](https://github.com/JT-427/real_name_record_rest_api/blob/master/db/real_name%20record.png)
+
+***
 ### 產生QRCode
 ```py
 import requests
